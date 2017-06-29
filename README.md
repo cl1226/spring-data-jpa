@@ -66,8 +66,8 @@ spring data jpa 可以通过在接口中按照规定语法创建一个方法进�
     4. 可能会存在一种特殊情况，比如 Person包含一个 task 的属性，也有一个 projectName 属性，此时会存在混淆。可以明确在属性之间加上 “_” 以显式表达意图，比如 “findByTask_ProjectName()”
     
 支持的规范表达式，这里以实体为User，有firstName和lastName,age 
--
-    表达式             例子                          --  hql查询语句 
+---------
+    表达式             例子                            hql查询语句 
     And               findByLastnameAndFirstname…     where x.lastname = ?1 and x.firstname = ?2  
     Or                findByLastnameOrFirstname…      where x.lastname = ?1 or x.firstname = ?2 
     Is,Equals         findByFirstname,  
