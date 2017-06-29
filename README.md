@@ -1,4 +1,6 @@
-spring data jpa 可以通过在接口中按照规定语法创建一个方法进行查询，spring data jpa 基础接口中，如CrudRepository中findOne，save，delete等，那么我们自己怎么按照需要创建一个方法进行查询呢？
+spring data jpa 可以通过在接口中按照规定语法创建一个方法进行查询
+===============
+spring data jpa 基础接口中，如CrudRepository中findOne，save，delete等，那么我们自己怎么按照需要创建一个方法进行查询呢？
   1. 最常见的做法是声明一个接口继承于CrudRepository 或者 PagingAndSortingRepository，JpaRepository,Repository
       public interface TaskDao extends JpaRepository<Task,Long>{
 
