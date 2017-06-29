@@ -66,32 +66,32 @@ Spring Data JPA框架在进行方法名解析时，会先把方法名多余的�
   2. 从右往左截取第一个大写字母开头的字符串此处为Name），然后检查剩下的字符串是否为查询实体的一个属性，如果是，则表示根据该属性进行查询；如果没有该属性，则重复第二步，继续从右往左截取；最后假设task为查询实体Person的一个属性；
   3. 接着处理剩下部分(ProjectName），先判断 task 所对应的类型是否有projectName属性，如果有，则表示该方法最终是根据 “ Person.task.projectName”的取值进行查询；否则继续按照步骤 2 的规则从右往左截取，最终表示根据 “Person.task.project.name” 的值进行查询。
   4. 可能会存在一种特殊情况，比如 Person包含一个 task 的属性，也有一个 projectName 属性，此时会存在混淆。可以明确在属性之间加上 “_” 以显式表达意图，比如 “findByTask_ProjectName()”
-支持的规范表达式，这里以实体为User，有firstName和lastName,age
-    表达式             例子                            hql查询语句
-    And               findByLastnameAndFirstname…     where x.lastname = ?1 and x.firstname = ?2
-    Or                findByLastnameOrFirstname…      where x.lastname = ?1 or x.firstname = ?2
-    Is,Equals         findByFirstname,
-                      findByFirstnameIs,
-                      findByFirstnameEqual…           where x.firstname = 1?
-    Between           findByStartDateBetween…         where x.startDate between 1? and ?2
-    LessThan          findByAgeLessThan…              where x.age < ?1
-    LessThanEqual     findByAgeLessThanEqual…         where x.age ⇐ ?1
-    GreaterThan       findByAgeGreaterThan…           where x.age > ?1
-    GreaterThanEqual  findByAgeGreaterThanEqual…      where x.age >= ?1
-    After             findByStartDateAfter…           where x.startDate > ?1
-    Before            findByStartDateBefore…          where x.startDate < ?1
-    IsNull            findByAgeIsNull…                where x.age is null
-    IsNotNull,NotNull findByAge(Is)NotNull…           where x.age not null
-    Like              findByFirstnameLike…            where x.firstname like ?1
-    NotLike           findByFirstnameNotLike…         where x.firstname not like ?1
-    StartingWith      findByFirstnameStartingWith…    where x.firstname like ?1 (parameter bound with appended %)
-    EndingWith        findByFirstnameEndingWith…      where x.firstname like ?1 (parameter bound with prepended %)
-    Containing        findByFirstnameContaining…      where x.firstname like ?1 (parameter bound wrapped in %)
-    OrderBy           findByAgeOrderByLastnameDesc…   where x.age = ?1 order by x.lastname desc
-    Not               findByLastnameNot…              where x.lastname <> ?1
-    In                findByAgeIn(Collection ages)…   where x.age in ?1
-    NotIn             findByAgeNotIn(Collection age)… where x.age not in ?1
-    True              findByActiveTrue()…             where x.active = true
-    False             findByActiveFalse()…            where x.active = false
-    IgnoreCase        findByFirstnameIgnoreCase…      where UPPER(x.firstame) = UPPER(?1)
+支持的规范表达式，这里以实体为User，有firstName和lastName,age 
+    表达式             例子                            hql查询语句 
+    And               findByLastnameAndFirstname…     where x.lastname = ?1 and x.firstname = ?2  
+    Or                findByLastnameOrFirstname…      where x.lastname = ?1 or x.firstname = ?2 
+    Is,Equals         findByFirstname,  
+                      findByFirstnameIs,  
+                      findByFirstnameEqual…           where x.firstname = 1?  
+    Between           findByStartDateBetween…         where x.startDate between 1? and ?2 
+    LessThan          findByAgeLessThan…              where x.age < ?1  
+    LessThanEqual     findByAgeLessThanEqual…         where x.age ⇐ ?1  
+    GreaterThan       findByAgeGreaterThan…           where x.age > ?1  
+    GreaterThanEqual  findByAgeGreaterThanEqual…      where x.age >= ?1 
+    After             findByStartDateAfter…           where x.startDate > ?1  
+    Before            findByStartDateBefore…          where x.startDate < ?1  
+    IsNull            findByAgeIsNull…                where x.age is null 
+    IsNotNull,NotNull findByAge(Is)NotNull…           where x.age not null  
+    Like              findByFirstnameLike…            where x.firstname like ?1 
+    NotLike           findByFirstnameNotLike…         where x.firstname not like ?1 
+    StartingWith      findByFirstnameStartingWith…    where x.firstname like ?1 (parameter bound with appended %) 
+    EndingWith        findByFirstnameEndingWith…      where x.firstname like ?1 (parameter bound with prepended %)  
+    Containing        findByFirstnameContaining…      where x.firstname like ?1 (parameter bound wrapped in %)  
+    OrderBy           findByAgeOrderByLastnameDesc…   where x.age = ?1 order by x.lastname desc 
+    Not               findByLastnameNot…              where x.lastname <> ?1  
+    In                findByAgeIn(Collection ages)…   where x.age in ?1 
+    NotIn             findByAgeNotIn(Collection age)… where x.age not in ?1 
+    True              findByActiveTrue()…             where x.active = true 
+    False             findByActiveFalse()…            where x.active = false  
+    IgnoreCase        findByFirstnameIgnoreCase…      where UPPER(x.firstame) = UPPER(?1) 
 
