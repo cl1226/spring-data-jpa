@@ -1,4 +1,5 @@
-###spring data jpa 可以通过在接口中按照规定语法创建一个方法进行查询
+spring data jpa 可以通过在接口中按照规定语法创建一个方法进行查询
+---
 *接口继承于CrudRepository 或者 PagingAndSortingRepository，JpaRepository,Repository
   public interface TaskDao extends JpaRepository<Task,Long>{}
 
