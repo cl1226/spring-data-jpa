@@ -3,14 +3,11 @@ spring data jpa 可以通过在接口中按照规定语法创建一个方法进�
 * 接口继承于CrudRepository 或者 PagingAndSortingRepository，JpaRepository,Repository  
   public interface TaskDao extends JpaRepository<Task,Long>{} 
 
- 或者利用注释的方式表名继承于JpaRepository，例如下面这俩种是等价的
-      @RepositoryDefinition(domainClass = Task.class, idClass = Long.class)
-      public interface TaskDao{
-
-      }
-      public interface TaskDao extends JpaRepository<Task,Long>{
-
-      }
+* 或者利用注释的方式表名继承于JpaRepository，例如下面这俩种是等价的 
+  @RepositoryDefinition(domainClass = Task.class, idClass = Long.class) 
+  public interface TaskDao{}  
+  public interface TaskDao extends JpaRepository<Task,Long>{} 
+  
  继承CrudRepository 或者 PagingAndSortingRepository，JpaRepository会抽出一些常用的方法，如果你spring data jpa帮你自定义那么多方法，你可以继承于JpaRepository，然后复制一些方法到你的接口中，可以选择性的要一些方法
     @NoRepositoryBean
     interface MyBaseRepository<T, ID extends Serializable> extends Repository<T, ID> {
