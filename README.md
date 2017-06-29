@@ -3,10 +3,10 @@ spring data jpa 可以通过在接口中按照规定语法创建一个方法进�
 * 接口继承于CrudRepository 或者 PagingAndSortingRepository，JpaRepository,Repository  
   public interface TaskDao extends JpaRepository<Task,Long>{} 
 
-* 或者利用注释的方式表名继承于JpaRepository，例如下面这俩种是等价的 
-  @RepositoryDefinition(domainClass = Task.class, idClass = Long.class) 
-  public interface TaskDao{}  
-  public interface TaskDao extends JpaRepository<Task,Long>{} 
+* 或者利用注释的方式表名继承于JpaRepository，例如下面这俩种是等价的
+    @RepositoryDefinition(domainClass = Task.class, idClass = Long.class) 
+    public interface TaskDao{}  
+    public interface TaskDao extends JpaRepository<Task,Long>{} 
   
 * 继承CrudRepository 或者 PagingAndSortingRepository，JpaRepository会抽出一些常用的方法，如果你spring data jpa帮你自定义那么多方法，你可以继 承于JpaRepository，然后复制一些方法到你的接口中，可以选择性的要一些方法
     @NoRepositoryBean
@@ -56,16 +56,18 @@ spring data jpa 可以通过在接口中按照规定语法创建一个方法进�
         List<Task> findTop10ByName(String name, Pageable pageable);
     }
  
-    那么spring data jpa是怎么通过这些规范来进行组装成查询语句呢？
-    -------------
+那么spring data jpa是怎么通过这些规范来进行组装成查询语句呢？
+-------------
 * Spring Data JPA框架在进行方法名解析时，会先把方法名多余的前缀截取掉，比如 find、findBy、read、readBy、get、getBy，然后对剩下部分进行解析。
 假如创建如下的查询：findByTaskProjectName()，框架在解析该方法时，首先剔除 findBy，然后对剩下的属性进行解析，假设查询实体为Doc
     1. 先判断 taskProjectName （根据 POJO 规范，首字母变为小写）是否为查询实体的一个属性，如果是，则表示根据该属性进行查询；如果没有该属性，继续第二步；
     2. 从右往左截取第一个大写字母开头的字符串此处为Name），然后检查剩下的字符串是否为查询实体的一个属性，如果是，则表示根据该属性进行查询；如果没有该属性，则重复第二步，继续从右往左截取；最后假设task为查询实体Person的一个属性；
     3. 接着处理剩下部分(ProjectName），先判断 task 所对应的类型是否有projectName属性，如果有，则表示该方法最终是根据 “ Person.task.projectName”的取值进行查询；否则继续按照步骤 2 的规则从右往左截取，最终表示根据 “Person.task.project.name” 的值进行查询。
     4. 可能会存在一种特殊情况，比如 Person包含一个 task 的属性，也有一个 projectName 属性，此时会存在混淆。可以明确在属性之间加上 “_” 以显式表达意图，比如 “findByTask_ProjectName()”
-    支持的规范表达式，这里以实体为User，有firstName和lastName,age 
-    表达式             例子                            hql查询语句 
+    
+支持的规范表达式，这里以实体为User，有firstName和lastName,age 
+-
+    表达式             例子                          --  hql查询语句 
     And               findByLastnameAndFirstname…     where x.lastname = ?1 and x.firstname = ?2  
     Or                findByLastnameOrFirstname…      where x.lastname = ?1 or x.firstname = ?2 
     Is,Equals         findByFirstname,  
